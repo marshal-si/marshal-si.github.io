@@ -1,20 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marshal's Website</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            background-color: #f4f4f9;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marshal — Software built on evidence, not assumption</title>
+<meta name="description" content="Marshal is an engineering platform where every system begins as a challenge — investigated, evidenced and validated before a single line of production code is written.">
+<style>
+  :root {
+    --orange: #C94F19;
+    --charcoal: #242321;
+    --ivory: #F7F5EF;
+    --muted: #6b675f;
+    --line: #e3ded2;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: var(--ivory);
+    color: var(--charcoal);
+    line-height: 1.65;
+  }
+
+  h1, h2, h3 { line-height: 1.25; font-weight: 600; }
+
+  .label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.6rem;
+  }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ---------- Header ---------- */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 2rem;
+    background: var(--ivory);
+    border-bottom: 1px solid transparent;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: border-color 0.2s ease;
+  }
+
+  header.scrolled { border-bottom-color: var(--line); }
+
+  header img { height: 38px; }
+
+  nav { display: flex; align-items: center; gap: 1.75rem; }
+
+  nav a.navlink {
+    color: var(--charcoal);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+
+  nav a.navlink:hover { color: var(--orange); }
+
+  .btn {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.6rem 1.35rem;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    border: 1px solid var(--orange);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .btn:hover { background: #a93f10; }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--charcoal);
+    border-color: var(--charcoal);
+  }
+
+  .btn.ghost:hover { background: var(--charcoal); color: var(--ivory); }
+
+  #menu-btn {
+    display: none;
+    background: none;
+    border: 1px solid var(--charcoal);
+    border-radius: 4px;
+    padding: 0.35rem 0.7rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--charcoal);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    text-align: center;
+    padding: 5rem 1.5rem 4.5rem;
+  }
+
+  .hero img.full-logo { width: min(400px, 78vw); height: auto; }
+
+  .hero h1 {
+    font-size: clamp(1.6rem, 3.4vw, 2.35rem);
+    margin-top: 2.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero p {
+    max-width: 620px;
+    margin: 1.1rem auto 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .hero .actions { margin-top: 2rem; display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 4rem 0; }
+
+  section.tinted { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin-bottom: 0.6rem; }
+
+  .section-sub { color: var(--muted); max-width: 640px; margin-bottom: 2.25rem; }
+
+  /* ---------- Cards ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.6rem;
+  }
+
+  section.tinted .card { background: var(--ivory); }
+
+  .card h3 { font-size: 1.02rem; margin-bottom: 0.45rem; }
+  .card h3 .num { color: var(--orange); margin-right: 0.4rem; }
+  .card p { color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- Stepper ---------- */
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .steps button {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 1.05rem;
+    font-size: 0.88rem;
+    cursor: pointer;
+    color: var(--charcoal);
+    transition: all 0.15s ease;
+  }
+
+  .steps button:hover { border-color: var(--orange); color: var(--orange); }
+
+  .steps button.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #fff;
+  }
+
+  .step-detail {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--orange);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    min-height: 120px;
+  }
+
+  .step-detail h3 { margin-bottom: 0.4rem; font-size: 1.12rem; }
+  .step-detail p { color: var(--muted); max-width: 700px; }
+
+  /* ---------- Pull quote ---------- */
+  .quote-block {
+    border-left: 4px solid var(--orange);
+    padding: 0.5rem 0 0.5rem 1.75rem;
+    max-width: 720px;
+  }
+
+  .quote-block p.lead {
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+
+  .quote-block p { color: var(--muted); }
+
+  /* ---------- CTA ---------- */
+  .cta { text-align: center; }
+
+  .cta .what-next {
+    max-width: 520px;
+    margin: 2rem auto 2.25rem;
+    text-align: left;
+  }
+
+  .cta .what-next li {
+    list-style: none;
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    position: relative;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cta .what-next li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 1.05rem;
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 2px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  footer img { height: 26px; vertical-align: middle; margin-right: 0.5rem; }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 720px) {
+    #menu-btn { display: block; }
+
+    nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--ivory);
+      border-bottom: 1px solid var(--line);
+      padding: 0.75rem 2rem 1.25rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    nav.open { display: flex; }
+  }
+</style>
+<base target="_blank">
 </head>
 <body>
-    <h1>Welcome to My Website!</h1>
-    <p>This is a basic HTML site hosted on GitHub Pages.</p>
+
+<header id="header">
+  <img src="assets/marshal-mark-and-wordmark.png" alt="Marshal">
+  <button id="menu-btn" aria-label="Toggle menu">&#9776;</button>
+  <nav id="nav">
+    <a class="navlink" href="#problem">The Problem</a>
+    <a class="navlink" href="#principles">Principles</a>
+    <a class="navlink" href="#how">How It Works</a>
+    <a class="btn" href="#raise">Raise a Challenge</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <img class="full-logo" src="assets/marshal-full-logo.png" alt="Marshal — Engineered. Evidenced. Governed.">
+  <h1>Software built on evidence,<br>not assumption.</h1>
+  <p>Marshal is an engineering platform where every system begins as a challenge —
+     investigated, evidenced and validated before a single line of production
+     code is written.</p>
+  <div class="actions">
+    <a class="btn" href="#raise">Raise a Challenge</a>
+    <a class="btn ghost" href="#how">See how it works</a>
+  </div>
+</div>
+
+<section id="problem" class="reveal">
+  <div class="wrap">
+    <span class="label">The Problem</span>
+    <h2>The most expensive code is written<br>before the problem is understood.</h2>
+    <p class="section-sub">Most systems don't fail in production. They fail at the whiteboard —
+       where an unexamined assumption becomes a requirement, and a requirement becomes a build.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Speculative engineering</h3>
+        <p>Features and entire systems are built on assumptions nobody tested.
+           The rework that follows costs far more than the question would have.</p>
+      </div>
+      <div class="card">
+        <h3>Opinion over evidence</h3>
+        <p>Decisions driven by preference or seniority are hard to defend in a boardroom —
+           and harder to unwind once they are embedded in a system.</p>
+      </div>
+      <div class="card">
+        <h3>Knowledge that walks out the door</h3>
+        <p>When the reasoning behind a decision lives only in memory, every staff
+           departure erodes the system, and every audit becomes archaeology.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="principles" class="tinted reveal">
+  <div class="wrap">
+    <span class="label">Principles</span>
+    <h2>Six rules the platform enforces — not just espouses.</h2>
+    <p class="section-sub">Principles are easy to publish and easy to ignore. On Marshal they are
+       built into the workflow itself: the system will not let work proceed past a checkpoint
+       its documentation has not earned.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3><span class="num">01</span>Knowledge before code</h3>
+        <p>Knowledge is the asset; code is the implementation detail. Nothing enters
+           production until the problem is validated and the approach is approved.</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">02</span>Evidence before opinion</h3>
+        <p>Every engineering decision is supported by evidence and recorded with its
+           rationale — defensible in review, not just defensible in a meeting.</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">03</span>Every decision is traceable</h3>
+        <p>Ask “why was this built?” and the answer is a record — linked back through
+           requirements to the evidence that justified them — not a recollection.</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">04</span>Quality is engineered</h3>
+        <p>Quality is designed into the process from the first step. Automated checks run
+           before any review begins, and failures must be fixed — not waived.</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">05</span>AI assists engineering</h3>
+        <p>AI agents investigate, review and draft at machine speed. Accountability,
+           approval and judgement remain with people.</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">06</span>Every project improves the platform</h3>
+        <p>Lessons from each engagement are captured and fed back. Knowledge compounds
+           instead of resetting with every new project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="reveal">
+  <div class="wrap">
+    <span class="label">How It Works</span>
+    <h2>How a challenge becomes a system.</h2>
+    <p class="section-sub">The path is unidirectional and every step is recorded.
+       Walk through the journey below.</p>
+
+    <div class="steps" id="steps"></div>
+    <div class="step-detail">
+      <h3 id="step-title"></h3>
+      <p id="step-text"></p>
+    </div>
+  </div>
+</section>
+
+<section class="tinted reveal">
+  <div class="wrap">
+    <span class="label">Why Marshal</span>
+    <div class="quote-block">
+      <p class="lead">Sometimes the right outcome of an investigation is the decision not to build.</p>
+      <p>A challenge that does not survive scrutiny closes with a written record of why — the
+         evidence considered, the reasoning applied, and what was observed along the way. That
+         record has real value: it stops budget being spent on the wrong thing, and it protects
+         the next good idea from the same mistake. An honest “no”, evidenced, is worth more than
+         an expensive “yes”.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <span class="label">People &amp; AI</span>
+    <h2>AI accelerates. People decide.</h2>
+    <p class="section-sub">Marshal's AI agents investigate challenges, review documents and code,
+       and produce working artefacts at machine speed. But the platform's discipline comes from
+       its rules: approvals, traceability and quality gates are enforced by the system, not by
+       memory or goodwill. The agents work inside the discipline. They never substitute for it.</p>
+  </div>
+</section>
+
+<section id="raise" class="tinted cta reveal">
+  <div class="wrap">
+    <span class="label">Get Started</span>
+    <h2>Raise a challenge.</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;">
+      A problem, a need, or an opportunity — captured in your own words, with no
+      interpretation and no sales filter.</p>
+
+    <ul class="what-next">
+      <li>Your challenge is recorded exactly as submitted.</li>
+      <li>It is investigated against evidence. You see the findings — whatever they conclude.</li>
+      <li>If it holds up, you receive a validated problem statement and a proposal.
+          If it doesn't, you will know why, in writing.</li>
+    </ul>
+
+    <!-- Replace the placeholder address with the real intake contact before publishing. -->
+    <a class="btn" href="/cdn-cgi/l/email-protection#debdb6bfb2b2bbb0b9bbad9ea7b1abacf3bab1b3bfb7b0f0bba6bfb3aeb2bbe1adabbcb4bbbdaae39db6bfb2b2bbb0b9bbfbeceeadabbcb3b7adadb7b1b0">Raise a Challenge</a>
+  </div>
+</section>
+
+<footer>
+  <img src="assets/marshal-mark-profile.png" alt="">
+  Marshal — Engineered. Evidenced. Governed.
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ---------- How-it-works stepper ----------
+  const steps = [
+    { name: "Raise a challenge",
+      text: "A problem, need or opportunity is captured in the challenger's own words — raw, without interpretation, and without a proposed solution attached. The challenge is a claim to be tested, not a fact to be accepted." },
+    { name: "Investigate",
+      text: "Assertions are extracted, grouped and checked against evidence. Contradictions between stakeholders are preserved as first-class information, not averaged away — and every conclusion links back to its source." },
+    { name: "A determination",
+      text: "The investigation concludes honestly. Either a real problem or opportunity is established — or the assertion did not survive scrutiny, and the challenge is closed with a written record of why." },
+    { name: "Define the problem",
+      text: "A confirmed finding is refined into a precise problem statement: who is affected, what it costs, and what success looks like. It must be validated and approved before any build work can begin." },
+    { name: "Plan the solution",
+      text: "Business and product requirements, then a solution strategy, define what will be built and why — the architecture, the technology choices and their rationale — before decisions become expensive." },
+    { name: "Build with governance",
+      text: "Delivery work traces back to the approved documents. Automated quality checks run before every review. Every decision, change and approval is recorded — the full history of the system remains answerable." }
+  ];
+
+  const stepsWrap = document.getElementById("steps");
+  const stepTitle = document.getElementById("step-title");
+  const stepText = document.getElementById("step-text");
+
+  steps.forEach((step, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = (i + 1) + ". " + step.name;
+    btn.addEventListener("click", () => selectStep(i));
+    stepsWrap.appendChild(btn);
+  });
+
+  function selectStep(i) {
+    stepsWrap.querySelectorAll("button").forEach((b, j) => b.classList.toggle("active", i === j));
+    stepTitle.textContent = steps[i].name;
+    stepText.textContent = steps[i].text;
+  }
+
+  selectStep(0);
+
+  // ---------- Mobile nav ----------
+  const menuBtn = document.getElementById("menu-btn");
+  const nav = document.getElementById("nav");
+  menuBtn.addEventListener("click", () => nav.classList.toggle("open"));
+  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+
+  // ---------- Header border on scroll ----------
+  const header = document.getElementById("header");
+  window.addEventListener("scroll", () => {
+    header.classList.toggle("scrolled", window.scrollY > 8);
+  }, { passive: true });
+
+  // ---------- Reveal on scroll ----------
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
