@@ -160,6 +160,127 @@
   .card h3 .num { color: var(--orange); margin-right: 0.4rem; }
   .card p { color: var(--muted); font-size: 0.95rem; }
 
+  /* ---------- DIKW Pyramid Component ---------- */
+  .dikw-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2.5rem 0 1.5rem;
+    box-shadow: 0 4px 20px rgba(36, 35, 33, 0.04);
+  }
+
+  section.tinted .dikw-card { background: var(--ivory); }
+
+  .dikw-pyramid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .dikw-tier {
+    width: 100%;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    transition: transform 0.15s ease;
+    box-sizing: border-box;
+  }
+
+  .dikw-tier:hover {
+    transform: translateY(-2px);
+  }
+
+  .tier-wisdom {
+    width: 68%;
+    background: rgba(201, 79, 25, 0.08);
+    border: 1px solid rgba(201, 79, 25, 0.35);
+  }
+
+  .tier-knowledge {
+    width: 78%;
+    background: rgba(36, 35, 33, 0.03);
+    border: 1px solid var(--line);
+  }
+
+  .tier-information {
+    width: 88%;
+    background: rgba(36, 35, 33, 0.02);
+    border: 1px solid var(--line);
+  }
+
+  .tier-data {
+    width: 100%;
+    background: rgba(36, 35, 33, 0.01);
+    border: 1px solid var(--line);
+  }
+
+  .tier-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+  }
+
+  .tier-name {
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--charcoal);
+  }
+
+  .tier-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .tier-actor {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .human-tag {
+    background: rgba(201, 79, 25, 0.15);
+    color: var(--orange);
+    border: 1px solid rgba(201, 79, 25, 0.3);
+  }
+
+  .ai-tag {
+    background: rgba(36, 35, 33, 0.08);
+    color: var(--charcoal);
+    border: 1px solid var(--line);
+  }
+
+  .dikw-footer {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .dikw-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .ai-dot { background-color: var(--charcoal); }
+  .human-dot { background-color: var(--orange); }
+
   /* ---------- Stepper ---------- */
   .steps {
     display: flex;
@@ -280,6 +401,9 @@
     }
 
     nav.open { display: flex; }
+
+    .dikw-tier { width: 100% !important; }
+    .dikw-footer { flex-direction: column; align-items: center; gap: 0.5rem; }
   }
 </style>
 <base target="_blank">
@@ -301,9 +425,7 @@
 <div class="hero">
   <img class="full-logo" src="marshal-full-logo.png" alt="Marshal — Engineered. Evidenced. Governed.">
   <h1>Software built on evidence,<br>not assumption.</h1>
-  <p>Marshal is an engineering platform where every system begins as a challenge —
-     investigated, evidenced, and validated using rigorous industry standards before a single line of production
-     code is written.</p>
+  <p>Marshal transforms enterprise challenges into clarity. By moving systematically from raw <strong>data</strong> and structured <strong>information</strong> to verified <strong>knowledge</strong>, every system is evidenced and validated before a single line of production code is written.</p>
   <div class="actions">
     <a class="btn" href="#raise">Raise a Challenge</a>
     <a class="btn ghost" href="#how">See how it works</a>
@@ -366,9 +488,8 @@
 
     <div class="grid">
       <div class="card">
-        <h3><span class="num">01</span>Knowledge before code</h3>
-        <p>Knowledge is the asset; code is the implementation detail. Nothing enters
-            production until the problem is validated and the approach is approved.</p>
+        <h3><span class="num">01</span>From Data to Knowledge, before Code</h3>
+        <p>Raw operational signals are transformed into verified knowledge. Code is an implementation detail written only after the problem space is fully understood and mapped.</p>
       </div>
       <div class="card">
         <h3><span class="num">02</span>Evidence before opinion</h3>
@@ -431,13 +552,60 @@
 <section class="reveal">
   <div class="wrap">
     <span class="label">People &amp; AI</span>
-    <h2>AI accelerates. People decide.</h2>
-    <p class="section-sub">Marshal's AI agents investigate challenges, review documents and code,
-        and produce working artefacts at machine speed. But the platform's discipline comes from
-        its rules: approvals, traceability, and quality gates are enforced by the system, not by
-        memory or goodwill. We have a policy of human domain expert in the loop. The agents work 
-        inside the discipline. They never substitute for it. 
-        </p>
+    <h2>AI accelerates the DIKW ladder. People apply the wisdom.</h2>
+    <p class="section-sub">Marshal's autonomous agents investigate challenges, review documents and code, and synthesize operational inputs into technical knowledge at machine speed. But true wisdom—judgment, ethics, and strategic intent—remains strictly human.</p>
+
+    <!-- Visual DIKW Pyramid Card -->
+    <div class="dikw-card">
+      <div class="dikw-pyramid">
+        <!-- WISDOM -->
+        <div class="dikw-tier tier-wisdom">
+          <div class="tier-title">
+            <span class="tier-name">Wisdom</span>
+            <span class="tier-actor human-tag">Human Expert</span>
+          </div>
+          <div class="tier-desc">Evaluative judgment, ethics, strategy, and final approvals.</div>
+        </div>
+
+        <!-- KNOWLEDGE -->
+        <div class="dikw-tier tier-knowledge">
+          <div class="tier-title">
+            <span class="tier-name">Knowledge</span>
+            <span class="tier-actor ai-tag">Marshal Agents</span>
+          </div>
+          <div class="tier-desc">arc42 specifications, C4 architecture models, and synthesized code context.</div>
+        </div>
+
+        <!-- INFORMATION -->
+        <div class="dikw-tier tier-information">
+          <div class="tier-title">
+            <span class="tier-name">Information</span>
+            <span class="tier-actor ai-tag">Marshal Agents</span>
+          </div>
+          <div class="tier-desc">Structured requirement specs, parsed logs, and feature parameters.</div>
+        </div>
+
+        <!-- DATA -->
+        <div class="dikw-tier tier-data">
+          <div class="tier-title">
+            <span class="tier-name">Data</span>
+            <span class="tier-actor ai-tag">Inputs</span>
+          </div>
+          <div class="tier-desc">Raw challenges, telemetry streams, and unformatted intake notes.</div>
+        </div>
+      </div>
+
+      <div class="dikw-footer">
+        <div class="dikw-legend-item">
+          <span class="dot ai-dot"></span>
+          <span>Automated by AI Multi-Agents</span>
+        </div>
+        <div class="dikw-legend-item">
+          <span class="dot human-dot"></span>
+          <span>Governed by Human Wisdom</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
