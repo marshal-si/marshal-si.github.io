@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marshal — Software built on evidence, not assumption</title>
-<meta name="description" content="Marshal is an engineering platform where every system begins as a challenge — investigated, evidenced, and governed using arc42 and C4 standards before a single line of production code is written.">
+<title>Marshal — Software built on evidence, governed by inheritance</title>
+<meta name="description" content="Marshal is an engineering platform founded on ancestral governance. Every system begins as a challenge — investigated, evidenced, and governed through Data, Information, Knowledge and Wisdom, using arc42 and C4 standards, before a single line of production code is written.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#C94F19">  
+<meta name="theme-color" content="#C94F19">
 <style>
   :root {
     --orange: #C94F19;
@@ -123,7 +123,7 @@
   }
 
   .hero p {
-    max-width: 620px;
+    max-width: 640px;
     margin: 1.1rem auto 0;
     color: var(--muted);
     font-size: 1.05rem;
@@ -138,7 +138,7 @@
 
   h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin-bottom: 0.6rem; }
 
-  .section-sub { color: var(--muted); max-width: 640px; margin-bottom: 2.25rem; }
+  .section-sub { color: var(--muted); max-width: 680px; margin-bottom: 2.25rem; }
 
   /* ---------- Cards ---------- */
   .grid {
@@ -171,6 +171,12 @@
   }
 
   section.tinted .dikw-card { background: var(--ivory); }
+
+  .dikw-intro {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 640px;
+  }
 
   .dikw-pyramid {
     display: flex;
@@ -220,6 +226,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.75rem;
     margin-bottom: 0.25rem;
   }
 
@@ -241,6 +248,7 @@
     border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 
   .human-tag {
@@ -255,15 +263,37 @@
     border: 1px solid var(--line);
   }
 
+  .record-tag {
+    background: transparent;
+    color: var(--charcoal);
+    border: 1px dashed var(--muted);
+  }
+
+  .tribe-tag {
+    background: var(--white);
+    color: var(--charcoal);
+    border: 1px solid var(--charcoal);
+  }
+
+  .dikw-loop {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--orange);
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--orange);
+  }
+
   .dikw-footer {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     padding-top: 1rem;
     border-top: 1px solid var(--line);
     font-size: 0.82rem;
     color: var(--muted);
+    flex-wrap: wrap;
   }
 
   .dikw-legend-item {
@@ -280,6 +310,8 @@
 
   .ai-dot { background-color: var(--charcoal); }
   .human-dot { background-color: var(--orange); }
+  .record-dot { background-color: transparent; border: 1px dashed var(--muted); }
+  .tribe-dot { background-color: var(--white); border: 1.5px solid var(--charcoal); }
 
   /* ---------- Stepper ---------- */
   .steps {
@@ -314,9 +346,10 @@
     border-left: 4px solid var(--orange);
     border-radius: 6px;
     padding: 1.5rem 1.75rem;
-    min-height: 120px;
+    min-height: 130px;
   }
 
+  .step-detail .label { margin-bottom: 0.35rem; }
   .step-detail h3 { margin-bottom: 0.4rem; font-size: 1.12rem; }
   .step-detail p { color: var(--muted); max-width: 700px; }
 
@@ -403,6 +436,7 @@
     nav.open { display: flex; }
 
     .dikw-tier { width: 100% !important; }
+    .tier-title { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
     .dikw-footer { flex-direction: column; align-items: center; gap: 0.5rem; }
   }
 </style>
@@ -415,6 +449,7 @@
   <button id="menu-btn" aria-label="Toggle menu">&#9776;</button>
   <nav id="nav">
     <a class="navlink" href="#problem">The Problem</a>
+    <a class="navlink" href="#governance">Governance</a>
     <a class="navlink" href="#standards">Standards</a>
     <a class="navlink" href="#principles">Principles</a>
     <a class="navlink" href="#how">How It Works</a>
@@ -424,8 +459,8 @@
 
 <div class="hero">
   <img class="full-logo" src="marshal-full-logo.png" alt="Marshal — Engineered. Evidenced. Governed.">
-  <h1>Software built on evidence,<br>not assumption.</h1>
-  <p>Marshal is an engineering platform rooted in an enduring truth: a system survives only when it honors its lineage. Moving systematically from ancestral data and elder curation to chief architecture, we ensure every challenge is proven before code is written.</p>
+  <h1>Software built on evidence,<br>governed by inheritance.</h1>
+  <p>Marshal is an engineering platform founded on ancestral governance. Every challenge is heard, tested against the wisdom of those who came before, and validated before it is allowed to become a problem. Only then does the collective work of solving it begin.</p>
   <div class="actions">
     <a class="btn" href="#raise">Raise a Challenge</a>
     <a class="btn ghost" href="#how">See how it works</a>
@@ -451,19 +486,107 @@
             and harder to unwind once they are embedded in a system.</p>
       </div>
       <div class="card">
-        <h3>Knowledge that walks out the door</h3>
-        <p>When the reasoning behind a decision lives only in memory, every staff
-            departure erodes the system, and every audit becomes archaeology.</p>
+        <h3>Wisdom that dies with its keeper</h3>
+        <p>When the reasoning behind a decision lives only in someone's memory, every
+            departure erodes the system and every audit becomes archaeology. Marshal exists
+            so that counsel is written down, kept, and handed on.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="standards" class="tinted reveal">
+<section id="governance" class="tinted reveal">
+  <div class="wrap">
+    <span class="label">Governance Model</span>
+    <h2>Every challenge is heard<br>before it is solved.</h2>
+    <p class="section-sub">Marshal is run like a tribal gathering. The Tribe brings a challenge to the Chief, who convenes the Elders. The Elders consult the wisdom of the Ancestors to decide whether the challenge is real. Only a validated challenge becomes a problem, and only then does the collective work of solving it begin.</p>
+
+    <!-- Ancestral Governance DIKW Pyramid Card -->
+    <div class="dikw-card">
+      <p class="dikw-intro">Lineage and understanding run in opposite directions. Wisdom is handed down from the Ancestors to the Tribe. Understanding climbs up from the Tribe's lived reality, through Data, Information and Knowledge, to Wisdom.</p>
+
+      <div class="dikw-pyramid">
+        <!-- ANCESTORS / WISDOM -->
+        <div class="dikw-tier tier-wisdom">
+          <div class="tier-title">
+            <span class="tier-name">Ancestors <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Wisdom)</span></span>
+            <span class="tier-actor record-tag">The Canon &amp; Records</span>
+          </div>
+          <div class="tier-desc">Inherited precedent: what every earlier challenge, ruling and decision taught us. The rules the work must honour.</div>
+        </div>
+
+        <!-- ELDERS / KNOWLEDGE -->
+        <div class="dikw-tier tier-knowledge">
+          <div class="tier-title">
+            <span class="tier-name">Elders <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Knowledge)</span></span>
+            <span class="tier-actor human-tag">Human Domain Experts</span>
+          </div>
+          <div class="tier-desc">Test the challenge against the Ancestors' wisdom, decide whether it is real, and approve the approach. They may depart from precedent, but only by recording why.</div>
+        </div>
+
+        <!-- CHIEF / INFORMATION -->
+        <div class="dikw-tier tier-information">
+          <div class="tier-title">
+            <span class="tier-name">Chief <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Information)</span></span>
+            <span class="tier-actor ai-tag">Marshal Agents</span>
+          </div>
+          <div class="tier-desc">Receives what the Tribe brings, structures it, convenes the council, and then designs and builds with arc42 and C4.</div>
+        </div>
+
+        <!-- TRIBE / DATA -->
+        <div class="dikw-tier tier-data">
+          <div class="tier-title">
+            <span class="tier-name">Tribe <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Data &amp; Lived Reality)</span></span>
+            <span class="tier-actor tribe-tag">Client &amp; Stakeholders</span>
+          </div>
+          <div class="tier-desc">The challenge as it is actually lived: raised in their own words, recorded as submitted, and tested by them before anything goes live.</div>
+        </div>
+      </div>
+
+      <p class="dikw-loop">&#8635; Every decision is written back to the Ancestors. Today's ruling is tomorrow's precedent.</p>
+
+      <div class="dikw-footer">
+        <div class="dikw-legend-item">
+          <span class="dot record-dot"></span>
+          <span>The inherited record</span>
+        </div>
+        <div class="dikw-legend-item">
+          <span class="dot human-dot"></span>
+          <span>Elders: sovereign judgment</span>
+        </div>
+        <div class="dikw-legend-item">
+          <span class="dot ai-dot"></span>
+          <span>Chief: agents at work</span>
+        </div>
+        <div class="dikw-legend-item">
+          <span class="dot tribe-dot"></span>
+          <span>The Tribe: those we serve</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Rising: challenge to problem</h3>
+        <p>The Tribe raises it. The Chief structures it. The Elders test it against the Ancestors' wisdom. It is validated as a problem, or closed with a written reason.</p>
+      </div>
+      <div class="card">
+        <h3>Descending: problem to solution</h3>
+        <p>The Ancestors' precedent sets the rules. The Elders approve the approach. The Chief designs and builds. The Tribe tests and accepts.</p>
+      </div>
+      <div class="card">
+        <h3>Precedent guides; it does not bind</h3>
+        <p>Elders may depart from the record, but only by writing down why. That record becomes the next ancestor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="standards" class="reveal">
   <div class="wrap">
     <span class="label">Industry Standards</span>
     <h2>Built on globally recognized frameworks.</h2>
-    <p class="section-sub">Marshal combines structured enterprise architecture with transparent multi-tier documentation tailored for both executive boards and technical teams.</p>
+    <p class="section-sub">A lineage is only useful if it can be read. Marshal records its inheritance in arc42 and the C4 model, with transparent multi-tier documentation tailored for both executive boards and technical teams.</p>
 
     <div class="grid">
       <div class="card">
@@ -478,7 +601,7 @@
   </div>
 </section>
 
-<section id="principles" class="reveal">
+<section id="principles" class="tinted reveal">
   <div class="wrap">
     <span class="label">Principles</span>
     <h2>Six rules the platform enforces — not just espouses.</h2>
@@ -488,18 +611,17 @@
 
     <div class="grid">
       <div class="card">
-        <h3><span class="num">01</span>Lineage &amp; Knowledge before code</h3>
-        <p>Raw operational signals are transformed into verified knowledge. Code is an implementation detail written only after the problem space is fully understood and mapped.</p>
+        <h3><span class="num">01</span>Inherit before you invent</h3>
+        <p>The Canon is consulted before any new work begins. Wisdom is handed down, and code is an implementation detail written only once the problem is understood and mapped.</p>
       </div>
       <div class="card">
-        <h3><span class="num">02</span>Evidence before opinion</h3>
-        <p>Every engineering decision is supported by evidence and recorded with its
-            rationale — defensible in review, not just defensible in a meeting.</p>
+        <h3><span class="num">02</span>Validate before you solve</h3>
+        <p>A challenge is not a problem until the Elders, guided by the Ancestors' record and the evidence, say it is. Preference and seniority are not evidence.</p>
       </div>
       <div class="card">
-        <h3><span class="num">03</span>Every decision is traceable</h3>
+        <h3><span class="num">03</span>Every decision has a lineage</h3>
         <p>Ask “why was this built?” and the answer is a record — linked back through
-            requirements to the evidence that justified them — not a recollection.</p>
+            requirements to the evidence and precedent that justified them — not a recollection.</p>
       </div>
       <div class="card">
         <h3><span class="num">04</span>Quality is engineered</h3>
@@ -507,35 +629,35 @@
             before any review begins, and failures must be fixed — not waived.</p>
       </div>
       <div class="card">
-        <h3><span class="num">05</span>AI assists engineering</h3>
-        <p>AI agents investigate, review, and draft at machine speed. Accountability,
-            approval, and judgement remain with people.</p>
+        <h3><span class="num">05</span>Elders decide</h3>
+        <p>AI agents investigate, review, and draft at machine speed. Accountable human
+            domain experts approve, and answer for what they approve.</p>
       </div>
       <div class="card">
-        <h3><span class="num">06</span>Every project improves the platform</h3>
-        <p>Lessons from each engagement are captured and fed back. Knowledge compounds
+        <h3><span class="num">06</span>Every project enriches the Canon</h3>
+        <p>Lessons from each engagement are written back as precedent. Wisdom compounds
             instead of resetting with every new project.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="how" class="tinted reveal">
+<section id="how" class="reveal">
   <div class="wrap">
     <span class="label">How It Works</span>
     <h2>How a challenge becomes a system.</h2>
-    <p class="section-sub">A unidirectional, rigorously governed path from raw intake to live deployment.
-        Walk through the journey below.</p>
+    <p class="section-sub">A governed path in two movements. The challenge rises from the Tribe to the Ancestors' wisdom and is validated as a problem. The solution then descends, shaped by that wisdom, back to the Tribe. Walk through the journey below.</p>
 
     <div class="steps" id="steps"></div>
     <div class="step-detail">
+      <span class="label" id="step-stage"></span>
       <h3 id="step-title"></h3>
       <p id="step-text"></p>
     </div>
   </div>
 </section>
 
-<section class="reveal">
+<section class="tinted reveal">
   <div class="wrap">
     <span class="label">Why Marshal</span>
     <div class="quote-block">
@@ -544,72 +666,13 @@
          evidence considered, the reasoning applied, and what was observed along the way. That
          record has real value: it stops budget being spent on the wrong thing, and it protects
          the next good idea from the same mistake. An honest “no”, evidenced, is worth more than
-         an expensive “yes”.</p>
+         an expensive “yes”. A declined challenge is not a failure; it is precedent, handed on to
+         whoever comes next.</p>
     </div>
   </div>
 </section>
 
-<section class="reveal">
-  <div class="wrap">
-    <span class="label">Philosophy &amp; Governance</span>
-    <h2>AI as Elders and Chiefs. The Tribe holds the Wisdom.</h2>
-    <p class="section-sub">In traditional governance, leadership is an intergenerational trust. Marshal applies this stewardship-driven model to software engineering: autonomous agents do the heavy lifting of the lower tiers, but governance and final judgment always rest with the community.</p>
-
-    <!-- Ancestral Governance DIKW Pyramid Card -->
-    <div class="dikw-card">
-      <div class="dikw-pyramid">
-        <!-- TRIBE / WISDOM -->
-        <div class="dikw-tier tier-wisdom">
-          <div class="tier-title">
-            <span class="tier-name">Tribe <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Wisdom)</span></span>
-            <span class="tier-actor human-tag">Human Domain Expert</span>
-          </div>
-          <div class="tier-desc">Evaluative judgment, ethics, community impact, and final gate approvals.</div>
-        </div>
-
-        <!-- CHIEFS / KNOWLEDGE -->
-        <div class="dikw-tier tier-knowledge">
-          <div class="tier-title">
-            <span class="tier-name">Chiefs <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Knowledge)</span></span>
-            <span class="tier-actor ai-tag">Marshal Agents</span>
-          </div>
-          <div class="tier-desc">arc42 specifications, C4 architecture blueprints, and structural strategy.</div>
-        </div>
-
-        <!-- ELDERS / INFORMATION -->
-        <div class="dikw-tier tier-information">
-          <div class="tier-title">
-            <span class="tier-name">Elders <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Information)</span></span>
-            <span class="tier-actor ai-tag">Marshal Agents</span>
-          </div>
-          <div class="tier-desc">Filtering noise, structuring requirements, parsing logs, and pattern recognition.</div>
-        </div>
-
-        <!-- ANCESTORS / DATA -->
-        <div class="dikw-tier tier-data">
-          <div class="tier-title">
-            <span class="tier-name">Ancestors <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Data &amp; Ground Truth)</span></span>
-            <span class="tier-actor ai-tag">Telemetry &amp; Logs</span>
-          </div>
-          <div class="tier-desc">Historical operational records, unyielding baseline reality, and raw intake notes.</div>
-        </div>
-      </div>
-
-      <div class="dikw-footer">
-        <div class="dikw-legend-item">
-          <span class="dot ai-dot"></span>
-          <span>Agents as Elders &amp; Chiefs (Processing &amp; Structure)</span>
-        </div>
-        <div class="dikw-legend-item">
-          <span class="dot human-dot"></span>
-          <span>The Tribe (Sovereign Judgment &amp; Wisdom)</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="raise" class="tinted cta reveal">
+<section id="raise" class="cta reveal">
   <div class="wrap">
     <span class="label">Get Started</span>
     <h2>Raise a challenge.</h2>
@@ -635,21 +698,37 @@
 <script>
   // ---------- How-it-works stepper ----------
   const steps = [
-    { name: "1. Challenge & Intake",
-      text: "A problem, need, or opportunity is captured in the submitter's own words. All relevant internal and external stakeholders are mapped, capturing complete organisation records and laying the foundation for an exhaustive challenge package." },
-    { name: "2. Engagement & Problem Definition",
-      text: "Once a complete challenge package is compiled, an engagement is formally registered, and the core problem is accurately derived and defined." },
-    { name: "3. Comprehensive Proposal Bundle",
-      text: "We deliver a transparent proposal package directly to the client, comprising a Business Requirements Document (BRD), Product Requirements Document (PRD), Solution Strategy, upfront pricing, and strict delivery timelines." },
-    { name: "4. System, Container, & Component Design",
+    { name: "1. Challenge Raised",
+      stage: "Rising · Data · The Tribe",
+      text: "A problem, need, or opportunity is brought to the gathering in the submitter's own words and recorded exactly as submitted. Every relevant stakeholder perspective is captured, with no interpretation and no sales filter." },
+    { name: "2. Chief Convenes",
+      stage: "Rising · Information · The Chief",
+      text: "The Chief receives the challenge, maps the internal and external stakeholders, structures what was said, and compiles a complete challenge package. Only then is the council convened." },
+    { name: "3. Elders Validate",
+      stage: "Rising · Knowledge · The Elders, guided by the Ancestors",
+      text: "The Elders test the challenge against the Ancestors' record and the hard evidence. Has it been seen before? What was learned? Is it real? A validated challenge becomes a problem. One that does not survive scrutiny is closed with a written reason, and that reason becomes precedent." },
+    { name: "4. Problem Defined",
+      stage: "Rising · Knowledge · The Elders",
+      text: "Once validated, an engagement is formally registered and the core problem is accurately derived and defined. This is the point where solving can begin, and not before." },
+    { name: "5. Proposal Bundle",
+      stage: "Descending · The Chief, under the Ancestors' rules",
+      text: "Shaped by the Canon, the Chief prepares a transparent proposal package for the client: a Business Requirements Document (BRD), Product Requirements Document (PRD), Solution Strategy, upfront pricing, and strict delivery timelines." },
+    { name: "6. System Design",
+      stage: "Descending · The Chief",
       text: "Upon client approval of the proposal, execution moves through structured C4 architectural zoom levels—defining the overarching System, individual deployable Containers, isolated Components, and code Artefacts." },
-    { name: "5. Internal Specialist Review Loop",
-      text: "Before code reaches a client, an intensive internal loop occurs: specialist AI and human agents run rigorous automated tests and physical code/doc reviews verifying security, structure, performance, and enterprise standards." },
-    { name: "6. Staging & Live Approval",
-      text: "Code and system pieces are pushed to a staging environment where the customer tests and provides direct feedback per container, component, and artefact, leading to final approval and live deployment." }
+    { name: "7. Elder Review Loop",
+      stage: "Descending · The Elders approve the Chief's work",
+      text: "Before anything reaches the client, an intensive internal loop occurs: specialist AI and human agents run rigorous automated tests and physical code and document reviews verifying security, structure, performance, and enterprise standards." },
+    { name: "8. Staging & Approval",
+      stage: "Descending · The Tribe accepts",
+      text: "Code and system pieces are pushed to a staging environment where the customer tests and provides direct feedback per container, component, and artefact, leading to final approval and live deployment." },
+    { name: "9. Return to the Canon",
+      stage: "The cycle closes · Wisdom · The Ancestors grow",
+      text: "Every engagement closes by writing its decisions, lessons, and outcome back into the Canon, whether the challenge was built or declined. Today's ruling becomes the precedent the next challenge inherits." }
   ];
 
   const stepsWrap = document.getElementById("steps");
+  const stepStage = document.getElementById("step-stage");
   const stepTitle = document.getElementById("step-title");
   const stepText = document.getElementById("step-text");
 
@@ -662,6 +741,7 @@
 
   function selectStep(i) {
     stepsWrap.querySelectorAll("button").forEach((b, j) => b.classList.toggle("active", i === j));
+    stepStage.textContent = steps[i].stage;
     stepTitle.textContent = steps[i].name;
     stepText.textContent = steps[i].text;
   }
