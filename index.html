@@ -1,772 +1,945 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marshal — Software built on evidence, governed by inheritance</title>
-<meta name="description" content="Marshal is an engineering platform founded on ancestral governance. Every system begins as a challenge — investigated, evidenced, and governed through Data, Information, Knowledge and Wisdom, using arc42 and C4 standards, before a single line of production code is written.">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#C94F19">
-<style>
-  :root {
-    --orange: #C94F19;
-    --charcoal: #242321;
-    --ivory: #F7F5EF;
-    --muted: #6b675f;
-    --line: #e3ded2;
-    --white: #ffffff;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    background: var(--ivory);
-    color: var(--charcoal);
-    line-height: 1.65;
-  }
-
-  h1, h2, h3 { line-height: 1.25; font-weight: 600; }
-
-  .label {
-    display: block;
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 0.6rem;
-  }
-
-  .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
-
-  /* ---------- Header ---------- */
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.9rem 2rem;
-    background: var(--ivory);
-    border-bottom: 1px solid transparent;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    transition: border-color 0.2s ease;
-  }
-
-  header.scrolled { border-bottom-color: var(--line); }
-
-  header img { height: 38px; }
-
-  nav { display: flex; align-items: center; gap: 1.75rem; }
-
-  nav a.navlink {
-    color: var(--charcoal);
-    text-decoration: none;
-    font-size: 0.92rem;
-  }
-
-  nav a.navlink:hover { color: var(--orange); }
-
-  .btn {
-    display: inline-block;
-    background: var(--orange);
-    color: #fff;
-    text-decoration: none;
-    padding: 0.6rem 1.35rem;
-    border-radius: 4px;
-    font-size: 0.92rem;
-    border: 1px solid var(--orange);
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-
-  .btn:hover { background: #a93f10; }
-
-  .btn.ghost {
-    background: transparent;
-    color: var(--charcoal);
-    border-color: var(--charcoal);
-  }
-
-  .btn.ghost:hover { background: var(--charcoal); color: var(--ivory); }
-
-  #menu-btn {
-    display: none;
-    background: none;
-    border: 1px solid var(--charcoal);
-    border-radius: 4px;
-    padding: 0.35rem 0.7rem;
-    font-size: 1rem;
-    cursor: pointer;
-    color: var(--charcoal);
-  }
-
-  /* ---------- Hero ---------- */
-  .hero {
-    text-align: center;
-    padding: 5rem 1.5rem 4.5rem;
-  }
-
-  .hero img.full-logo { width: min(400px, 78vw); height: auto; }
-
-  .hero h1 {
-    font-size: clamp(1.6rem, 3.4vw, 2.35rem);
-    margin-top: 2.25rem;
-    letter-spacing: -0.01em;
-  }
-
-  .hero p {
-    max-width: 640px;
-    margin: 1.1rem auto 0;
-    color: var(--muted);
-    font-size: 1.05rem;
-  }
-
-  .hero .actions { margin-top: 2rem; display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
-
-  /* ---------- Sections ---------- */
-  section { padding: 4rem 0; }
-
-  section.tinted { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-
-  h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin-bottom: 0.6rem; }
-
-  .section-sub { color: var(--muted); max-width: 680px; margin-bottom: 2.25rem; }
-
-  /* ---------- Cards ---------- */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-  }
-
-  .card {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 1.6rem;
-  }
-
-  section.tinted .card { background: var(--ivory); }
-
-  .card h3 { font-size: 1.02rem; margin-bottom: 0.45rem; }
-  .card h3 .num { color: var(--orange); margin-right: 0.4rem; }
-  .card p { color: var(--muted); font-size: 0.95rem; }
-
-  /* ---------- Ancestral Governance Pyramid Component ---------- */
-  .dikw-card {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 2rem;
-    margin: 2.5rem 0 1.5rem;
-    box-shadow: 0 4px 20px rgba(36, 35, 33, 0.04);
-  }
-
-  section.tinted .dikw-card { background: var(--ivory); }
-
-  .dikw-intro {
-    font-size: 0.9rem;
-    color: var(--muted);
-    max-width: 640px;
-  }
-
-  .dikw-pyramid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
-    margin-top: 1.5rem;
-  }
-
-  .dikw-tier {
-    width: 100%;
-    border-radius: 6px;
-    padding: 1rem 1.25rem;
-    transition: transform 0.15s ease;
-    box-sizing: border-box;
-  }
-
-  .dikw-tier:hover {
-    transform: translateY(-2px);
-  }
-
-  .tier-wisdom {
-    width: 68%;
-    background: rgba(201, 79, 25, 0.08);
-    border: 1px solid rgba(201, 79, 25, 0.35);
-  }
-
-  .tier-knowledge {
-    width: 78%;
-    background: rgba(36, 35, 33, 0.03);
-    border: 1px solid var(--line);
-  }
-
-  .tier-information {
-    width: 88%;
-    background: rgba(36, 35, 33, 0.02);
-    border: 1px solid var(--line);
-  }
-
-  .tier-data {
-    width: 100%;
-    background: rgba(36, 35, 33, 0.01);
-    border: 1px solid var(--line);
-  }
-
-  .tier-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .tier-name {
-    font-weight: 600;
-    font-size: 0.98rem;
-    color: var(--charcoal);
-  }
-
-  .tier-desc {
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  .tier-actor {
-    font-size: 0.68rem;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-  }
-
-  .human-tag {
-    background: rgba(201, 79, 25, 0.15);
-    color: var(--orange);
-    border: 1px solid rgba(201, 79, 25, 0.3);
-  }
-
-  .ai-tag {
-    background: rgba(36, 35, 33, 0.08);
-    color: var(--charcoal);
-    border: 1px solid var(--line);
-  }
-
-  .record-tag {
-    background: transparent;
-    color: var(--charcoal);
-    border: 1px dashed var(--muted);
-  }
-
-  .tribe-tag {
-    background: var(--white);
-    color: var(--charcoal);
-    border: 1px solid var(--charcoal);
-  }
-
-  .dikw-loop {
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--orange);
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--orange);
-  }
-
-  .dikw-footer {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--line);
-    font-size: 0.82rem;
-    color: var(--muted);
-    flex-wrap: wrap;
-  }
-
-  .dikw-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .ai-dot { background-color: var(--charcoal); }
-  .human-dot { background-color: var(--orange); }
-  .record-dot { background-color: transparent; border: 1px dashed var(--muted); }
-  .tribe-dot { background-color: var(--white); border: 1.5px solid var(--charcoal); }
-
-  /* ---------- Stepper ---------- */
-  .steps {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .steps button {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 0.5rem 1.05rem;
-    font-size: 0.88rem;
-    cursor: pointer;
-    color: var(--charcoal);
-    transition: all 0.15s ease;
-  }
-
-  .steps button:hover { border-color: var(--orange); color: var(--orange); }
-
-  .steps button.active {
-    background: var(--orange);
-    border-color: var(--orange);
-    color: #fff;
-  }
-
-  .step-detail {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-left: 4px solid var(--orange);
-    border-radius: 6px;
-    padding: 1.5rem 1.75rem;
-    min-height: 130px;
-  }
-
-  .step-detail .label { margin-bottom: 0.35rem; }
-  .step-detail h3 { margin-bottom: 0.4rem; font-size: 1.12rem; }
-  .step-detail p { color: var(--muted); max-width: 700px; }
-
-  /* ---------- Pull quote ---------- */
-  .quote-block {
-    border-left: 4px solid var(--orange);
-    padding: 0.5rem 0 0.5rem 1.75rem;
-    max-width: 720px;
-  }
-
-  .quote-block p.lead {
-    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
-    font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: 1rem;
-  }
-
-  .quote-block p { color: var(--muted); }
-
-  /* ---------- CTA ---------- */
-  .cta { text-align: center; }
-
-  .cta .what-next {
-    max-width: 520px;
-    margin: 2rem auto 2.25rem;
-    text-align: left;
-  }
-
-  .cta .what-next li {
-    list-style: none;
-    padding: 0.55rem 0 0.55rem 1.6rem;
-    position: relative;
-    color: var(--muted);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .cta .what-next li::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 1.05rem;
-    width: 8px; height: 8px;
-    background: var(--orange);
-    border-radius: 2px;
-  }
-
-  /* ---------- Footer ---------- */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-
-  footer img { height: 26px; vertical-align: middle; margin-right: 0.5rem; }
-
-  /* ---------- Reveal on scroll ---------- */
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ---------- Mobile ---------- */
-  @media (max-width: 720px) {
-    #menu-btn { display: block; }
-
-    nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--ivory);
-      border-bottom: 1px solid var(--line);
-      padding: 0.75rem 2rem 1.25rem;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.85rem;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marshal — Software built on evidence, governed by inheritance</title>
+  <meta name="description"
+    content="Marshal is an engineering platform founded on ancestral governance. Every system begins as a challenge — investigated, evidenced, and governed through Data, Information, Knowledge and Wisdom, using arc42 and C4 standards, before a single line of production code is written.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#C94F19">
+  <style>
+    :root {
+      --orange: #C94F19;
+      --charcoal: #242321;
+      --ivory: #F7F5EF;
+      --muted: #6b675f;
+      --line: #e3ded2;
+      --white: #ffffff;
     }
 
-    nav.open { display: flex; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    .dikw-tier { width: 100% !important; }
-    .tier-title { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
-    .dikw-footer { flex-direction: column; align-items: center; gap: 0.5rem; }
-  }
-</style>
-<base target="_blank">
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      line-height: 1.65;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2rem;
+      background: var(--ivory);
+      border-bottom: 1px solid transparent;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      transition: border-color 0.2s ease;
+    }
+
+    header.scrolled {
+      border-bottom-color: var(--line);
+    }
+
+    header img {
+      height: 38px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    nav a.navlink {
+      color: var(--charcoal);
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+
+    nav a.navlink:hover {
+      color: var(--orange);
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.6rem 1.35rem;
+      border-radius: 4px;
+      font-size: 0.92rem;
+      border: 1px solid var(--orange);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #a93f10;
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--charcoal);
+      border-color: var(--charcoal);
+    }
+
+    .btn.ghost:hover {
+      background: var(--charcoal);
+      color: var(--ivory);
+    }
+
+    #menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--charcoal);
+      border-radius: 4px;
+      padding: 0.35rem 0.7rem;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--charcoal);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      text-align: center;
+      padding: 5rem 1.5rem 4.5rem;
+    }
+
+    .hero img.full-logo {
+      width: min(400px, 78vw);
+      height: auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.6rem, 3.4vw, 2.35rem);
+      margin-top: 2.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero p {
+      max-width: 640px;
+      margin: 1.1rem auto 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero .actions {
+      margin-top: 2rem;
+      display: flex;
+      gap: 0.9rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- Sections ---------- */
+    section {
+      padding: 4rem 0;
+    }
+
+    section.tinted {
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 680px;
+      margin-bottom: 2.25rem;
+    }
+
+    /* ---------- Cards ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 1.6rem;
+    }
+
+    section.tinted .card {
+      background: var(--ivory);
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card h3 .num {
+      color: var(--orange);
+      margin-right: 0.4rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ---------- Ancestral Governance Pyramid Component ---------- */
+    .dikw-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2.5rem 0 1.5rem;
+      box-shadow: 0 4px 20px rgba(36, 35, 33, 0.04);
+    }
+
+    section.tinted .dikw-card {
+      background: var(--ivory);
+    }
+
+    .dikw-intro {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .dikw-pyramid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .dikw-tier {
+      width: 100%;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      transition: transform 0.15s ease;
+      box-sizing: border-box;
+    }
+
+    .dikw-tier:hover {
+      transform: translateY(-2px);
+    }
+
+    .tier-wisdom {
+      width: 68%;
+      background: rgba(201, 79, 25, 0.08);
+      border: 1px solid rgba(201, 79, 25, 0.35);
+    }
+
+    .tier-knowledge {
+      width: 78%;
+      background: rgba(36, 35, 33, 0.03);
+      border: 1px solid var(--line);
+    }
+
+    .tier-information {
+      width: 88%;
+      background: rgba(36, 35, 33, 0.02);
+      border: 1px solid var(--line);
+    }
+
+    .tier-data {
+      width: 100%;
+      background: rgba(36, 35, 33, 0.01);
+      border: 1px solid var(--line);
+    }
+
+    .tier-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+      color: var(--charcoal);
+    }
+
+    .tier-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .tier-actor {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .human-tag {
+      background: rgba(201, 79, 25, 0.15);
+      color: var(--orange);
+      border: 1px solid rgba(201, 79, 25, 0.3);
+    }
+
+    .ai-tag {
+      background: rgba(36, 35, 33, 0.08);
+      color: var(--charcoal);
+      border: 1px solid var(--line);
+    }
+
+    .record-tag {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1px dashed var(--muted);
+    }
+
+    .tribe-tag {
+      background: var(--white);
+      color: var(--charcoal);
+      border: 1px solid var(--charcoal);
+    }
+
+    .dikw-loop {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--orange);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--orange);
+    }
+
+    .dikw-footer {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .dikw-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .ai-dot {
+      background-color: var(--charcoal);
+    }
+
+    .human-dot {
+      background-color: var(--orange);
+    }
+
+    .record-dot {
+      background-color: transparent;
+      border: 1px dashed var(--muted);
+    }
+
+    .tribe-dot {
+      background-color: var(--white);
+      border: 1.5px solid var(--charcoal);
+    }
+
+    /* ---------- Stepper ---------- */
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .steps button {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.5rem 1.05rem;
+      font-size: 0.88rem;
+      cursor: pointer;
+      color: var(--charcoal);
+      transition: all 0.15s ease;
+    }
+
+    .steps button:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .steps button.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+    }
+
+    .step-detail {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--orange);
+      border-radius: 6px;
+      padding: 1.5rem 1.75rem;
+      min-height: 130px;
+    }
+
+    .step-detail .label {
+      margin-bottom: 0.35rem;
+    }
+
+    .step-detail h3 {
+      margin-bottom: 0.4rem;
+      font-size: 1.12rem;
+    }
+
+    .step-detail p {
+      color: var(--muted);
+      max-width: 700px;
+    }
+
+    /* ---------- Pull quote ---------- */
+    .quote-block {
+      border-left: 4px solid var(--orange);
+      padding: 0.5rem 0 0.5rem 1.75rem;
+      max-width: 720px;
+    }
+
+    .quote-block p.lead {
+      font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+
+    .quote-block p {
+      color: var(--muted);
+    }
+
+    /* ---------- CTA ---------- */
+    .cta {
+      text-align: center;
+    }
+
+    .cta .what-next {
+      max-width: 520px;
+      margin: 2rem auto 2.25rem;
+      text-align: left;
+    }
+
+    .cta .what-next li {
+      list-style: none;
+      padding: 0.55rem 0 0.55rem 1.6rem;
+      position: relative;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cta .what-next li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.05rem;
+      width: 8px;
+      height: 8px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer img {
+      height: 26px;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    /* ---------- Reveal on scroll ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 720px) {
+      #menu-btn {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--ivory);
+        border-bottom: 1px solid var(--line);
+        padding: 0.75rem 2rem 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      .dikw-tier {
+        width: 100% !important;
+      }
+
+      .tier-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+
+      .dikw-footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+  <base target="_blank">
 </head>
+
 <body>
 
-<header id="header">
-  <img src="marshal-mark-and-wordmark.png" alt="Marshal">
-  <button id="menu-btn" aria-label="Toggle menu">&#9776;</button>
-  <nav id="nav">
-    <a class="navlink" href="#problem">The Problem</a>
-    <a class="navlink" href="#governance">Governance</a>
-    <a class="navlink" href="#standards">Standards</a>
-    <a class="navlink" href="#principles">Principles</a>
-    <a class="navlink" href="#how">How It Works</a>
-    <a class="btn" href="#raise">Raise a Challenge</a>
-  </nav>
-</header>
+  <header id="header">
+    <img src="marshal-mark-and-wordmark.png" alt="Marshal">
+    <button id="menu-btn" aria-label="Toggle menu">&#9776;</button>
+    <nav id="nav">
+      <a class="navlink" href="#problem">The Problem</a>
+      <a class="navlink" href="#governance">Governance</a>
+      <a class="navlink" href="#standards">Standards</a>
+      <a class="navlink" href="#principles">Principles</a>
+      <a class="navlink" href="#how">How It Works</a>
+      <a class="btn" href="#raise">Raise a Challenge</a>
+    </nav>
+  </header>
 
-<div class="hero">
-  <img class="full-logo" src="marshal-full-logo.png" alt="Marshal — Engineered. Evidenced. Governed.">
-  <h1>Software built on evidence,<br>governed by inheritance.</h1>
-  <p>Marshal is an engineering platform founded on ancestral governance. Every challenge is heard, tested against the wisdom of those who came before, and validated before it is allowed to become a problem. Only then does the collective work of solving it begin.</p>
-  <div class="actions">
-    <a class="btn" href="#raise">Raise a Challenge</a>
-    <a class="btn ghost" href="#how">See how it works</a>
+  <div class="hero">
+    <img class="full-logo" src="marshal-full-logo.png" alt="Marshal — Engineered. Evidenced. Governed.">
+    <h1>Software built on evidence,<br>governed by inheritance.</h1>
+    <p>Marshal is an engineering platform founded on ancestral governance. Every challenge is heard, tested against the
+      wisdom of those who came before, and validated before it is allowed to become a problem. Only then does the
+      collective work of solving it begin.</p>
+    <div class="actions">
+      <a class="btn" href="#raise">Raise a Challenge</a>
+      <a class="btn ghost" href="#how">See how it works</a>
+    </div>
   </div>
-</div>
 
-<section id="problem" class="reveal">
-  <div class="wrap">
-    <span class="label">The Problem</span>
-    <h2>The most expensive code is written<br>before the problem is understood.</h2>
-    <p class="section-sub">Most systems don't fail in production. They fail at the whiteboard —
+  <section id="problem" class="reveal">
+    <div class="wrap">
+      <span class="label">The Problem</span>
+      <h2>The most expensive code is written<br>before the problem is understood.</h2>
+      <p class="section-sub">Most systems don't fail in production. They fail at the whiteboard —
         where an unexamined assumption becomes a requirement, and a requirement becomes a build.</p>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Speculative engineering</h3>
-        <p>Features and entire systems are built on assumptions nobody tested.
+      <div class="grid">
+        <div class="card">
+          <h3>Speculative engineering</h3>
+          <p>Features and entire systems are built on assumptions nobody tested.
             The rework that follows costs far more than the question would have.</p>
-      </div>
-      <div class="card">
-        <h3>Opinion over evidence</h3>
-        <p>Decisions driven by preference or seniority are hard to defend in a boardroom —
+        </div>
+        <div class="card">
+          <h3>Opinion over evidence</h3>
+          <p>Decisions driven by preference or seniority are hard to defend in a boardroom —
             and harder to unwind once they are embedded in a system.</p>
-      </div>
-      <div class="card">
-        <h3>Wisdom that dies with its keeper</h3>
-        <p>When the reasoning behind a decision lives only in someone's memory, every
+        </div>
+        <div class="card">
+          <h3>Wisdom that dies with its keeper</h3>
+          <p>When the reasoning behind a decision lives only in someone's memory, every
             departure erodes the system and every audit becomes archaeology. Marshal exists
             so that counsel is written down, kept, and handed on.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="governance" class="tinted reveal">
-  <div class="wrap">
-    <span class="label">Governance Model</span>
-    <h2>Every challenge is heard<br>before it is solved.</h2>
-    <p class="section-sub">Marshal is run like a tribal gathering. The Tribe brings a challenge to the Chief, who convenes the Elders. The Elders consult the wisdom of the Ancestors to decide whether the challenge is real. Only a validated challenge becomes a problem, and only then does the collective work of solving it begin.</p>
-
-    <!-- Ancestral Governance DIKW Pyramid Card -->
-    <div class="dikw-card">
-      <p class="dikw-intro">Lineage and understanding run in opposite directions. Wisdom is handed down from the Ancestors to the Tribe. Understanding climbs up from the Tribe's lived reality, through Data, Information and Knowledge, to Wisdom.</p>
-
-      <div class="dikw-pyramid">
-        <!-- ANCESTORS / WISDOM -->
-        <div class="dikw-tier tier-wisdom">
-          <div class="tier-title">
-            <span class="tier-name">Ancestors <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Wisdom)</span></span>
-            <span class="tier-actor record-tag">The Canon &amp; Records</span>
-          </div>
-          <div class="tier-desc">Inherited precedent: what every earlier challenge, ruling and decision taught us. The rules the work must honour.</div>
-        </div>
-
-        <!-- ELDERS / KNOWLEDGE -->
-        <div class="dikw-tier tier-knowledge">
-          <div class="tier-title">
-            <span class="tier-name">Elders <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Knowledge)</span></span>
-            <span class="tier-actor human-tag">Human Domain Experts</span>
-          </div>
-          <div class="tier-desc">Test the challenge against the Ancestors' wisdom, decide whether it is real, and approve the approach. They may depart from precedent, but only by recording why.</div>
-        </div>
-
-        <!-- CHIEF / INFORMATION -->
-        <div class="dikw-tier tier-information">
-          <div class="tier-title">
-            <span class="tier-name">Chief <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Information)</span></span>
-            <span class="tier-actor ai-tag">Marshal Agents</span>
-          </div>
-          <div class="tier-desc">Receives what the Tribe brings, structures it, convenes the council, and then designs and builds with arc42 and C4.</div>
-        </div>
-
-        <!-- TRIBE / DATA -->
-        <div class="dikw-tier tier-data">
-          <div class="tier-title">
-            <span class="tier-name">Tribe <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Data &amp; Lived Reality)</span></span>
-            <span class="tier-actor tribe-tag">Client &amp; Stakeholders</span>
-          </div>
-          <div class="tier-desc">The challenge as it is actually lived: raised in their own words, recorded as submitted, and tested by them before anything goes live.</div>
-        </div>
-      </div>
-
-      <p class="dikw-loop">&#8635; Every decision is written back to the Ancestors. Today's ruling is tomorrow's precedent.</p>
-
-      <div class="dikw-footer">
-        <div class="dikw-legend-item">
-          <span class="dot record-dot"></span>
-          <span>The inherited record</span>
-        </div>
-        <div class="dikw-legend-item">
-          <span class="dot human-dot"></span>
-          <span>Elders: sovereign judgment</span>
-        </div>
-        <div class="dikw-legend-item">
-          <span class="dot ai-dot"></span>
-          <span>Chief: agents at work</span>
-        </div>
-        <div class="dikw-legend-item">
-          <span class="dot tribe-dot"></span>
-          <span>The Tribe: those we serve</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Rising: challenge to problem</h3>
-        <p>The Tribe raises it. The Chief structures it. The Elders test it against the Ancestors' wisdom. It is validated as a problem, or closed with a written reason.</p>
+  <section id="governance" class="tinted reveal">
+    <div class="wrap">
+      <span class="label">Governance Model</span>
+      <h2>Every challenge is heard<br>before it is solved.</h2>
+      <p class="section-sub">Marshal is run like a tribal gathering. The Tribe brings a challenge to the Chief, who
+        convenes the Elders. The Elders consult the wisdom of the Ancestors to decide whether the challenge is real.
+        Only a validated challenge becomes a problem, and only then does the collective work of solving it begin.</p>
+
+      <!-- Ancestral Governance DIKW Pyramid Card -->
+      <div class="dikw-card">
+        <p class="dikw-intro">Lineage and understanding run in opposite directions. Wisdom is handed down from the
+          Ancestors to the Tribe. Understanding climbs up from the Tribe's lived reality, through Data, Information and
+          Knowledge, to Wisdom.</p>
+
+        <div class="dikw-pyramid">
+
+          <!-- TRIBE / DATA -->
+          <div class="dikw-tier tier-data">
+            <div class="tier-title">
+              <span class="tier-name">Tribe <span style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Data
+                  &amp; Lived Reality)</span></span>
+              <span class="tier-actor tribe-tag">Client &amp; Stakeholders</span>
+            </div>
+            <div class="tier-desc">The challenge as it is actually lived: raised in their own words, recorded as
+              submitted, and tested by them before anything goes live.</div>
+          </div>
+
+          <!-- CHIEF / INFORMATION -->
+          <div class="dikw-tier tier-information">
+            <div class="tier-title">
+              <span class="tier-name">Chief <span
+                  style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Information)</span></span>
+              <span class="tier-actor ai-tag">Marshal Agents</span>
+            </div>
+            <div class="tier-desc">Receives what the Tribe brings, structures it, convenes the council, and then designs
+              and builds with arc42 and C4.</div>
+          </div>
+
+          <!-- ELDERS / KNOWLEDGE -->
+          <div class="dikw-tier tier-knowledge">
+            <div class="tier-title">
+              <span class="tier-name">Elders <span
+                  style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Knowledge)</span></span>
+              <span class="tier-actor human-tag">Human Domain Experts</span>
+            </div>
+            <div class="tier-desc">Test the challenge against the Ancestors' wisdom, decide whether it is real, and
+              approve the approach. They may depart from precedent, but only by recording why.</div>
+          </div>
+
+          <!-- ANCESTORS / WISDOM -->
+          <div class="dikw-tier tier-wisdom">
+            <div class="tier-title">
+              <span class="tier-name">Ancestors <span
+                  style="font-weight:400; color:var(--muted); font-size:0.85rem;">(Wisdom)</span></span>
+              <span class="tier-actor record-tag">The Canon &amp; Records</span>
+            </div>
+            <div class="tier-desc">Inherited precedent: what every earlier challenge, ruling and decision taught us. The
+              rules the work must honour.</div>
+          </div>
+
+        </div>
+
+        <p class="dikw-loop">&#8635; Every decision is written back to the Ancestors. Today's ruling is tomorrow's
+          precedent.</p>
+
+        <div class="dikw-footer">
+          <div class="dikw-legend-item">
+            <span class="dot record-dot"></span>
+            <span>The inherited record</span>
+          </div>
+          <div class="dikw-legend-item">
+            <span class="dot human-dot"></span>
+            <span>Elders: sovereign judgment</span>
+          </div>
+          <div class="dikw-legend-item">
+            <span class="dot ai-dot"></span>
+            <span>Chief: agents at work</span>
+          </div>
+          <div class="dikw-legend-item">
+            <span class="dot tribe-dot"></span>
+            <span>The Tribe: those we serve</span>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <h3>Descending: problem to solution</h3>
-        <p>The Ancestors' precedent sets the rules. The Elders approve the approach. The Chief designs and builds. The Tribe tests and accepts.</p>
-      </div>
-      <div class="card">
-        <h3>Precedent guides; it does not bind</h3>
-        <p>Elders may depart from the record, but only by writing down why. That record becomes the next ancestor.</p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Rising: challenge to problem</h3>
+          <p>The Tribe raises it. The Chief structures it. The Elders test it against the Ancestors' wisdom. It is
+            validated as a problem, or closed with a written reason.</p>
+        </div>
+        <div class="card">
+          <h3>Descending: problem to solution</h3>
+          <p>The Ancestors' precedent sets the rules. The Elders approve the approach. The Chief designs and builds. The
+            Tribe tests and accepts.</p>
+        </div>
+        <div class="card">
+          <h3>Precedent guides; it does not bind</h3>
+          <p>Elders may depart from the record, but only by writing down why. That record becomes the next ancestor.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="standards" class="reveal">
-  <div class="wrap">
-    <span class="label">Industry Standards</span>
-    <h2>Built on globally recognized frameworks.</h2>
-    <p class="section-sub">A lineage is only useful if it can be read. Marshal records its inheritance in arc42 and the C4 model, with transparent multi-tier documentation tailored for both executive boards and technical teams.</p>
+  <section id="standards" class="reveal">
+    <div class="wrap">
+      <span class="label">Industry Standards</span>
+      <h2>Built on globally recognized frameworks.</h2>
+      <p class="section-sub">A lineage is only useful if it can be read. Marshal records its inheritance in arc42 and
+        the C4 model, with transparent multi-tier documentation tailored for both executive boards and technical teams.
+      </p>
 
-    <div class="grid">
-      <div class="card">
-        <h3>arc42 Architecture Framework</h3>
-        <p>Every process generates comprehensive documentation structured via arc42. Deliverables are cleanly separated into <strong>Executive docs</strong> for management oversight, <strong>Technical docs</strong> for engineering depths, and <strong>User manuals/guides</strong> for end-users.</p>
-      </div>
-      <div class="card">
-        <h3>C4 Model Design Principles</h3>
-        <p>Systems are architected and visualized using the C4 model—moving seamlessly from System context down through Containers, Components, and Code Artefacts without architectural drift.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>arc42 Architecture Framework</h3>
+          <p>Every process generates comprehensive documentation structured via arc42. Deliverables are cleanly
+            separated into <strong>Executive docs</strong> for management oversight, <strong>Technical docs</strong> for
+            engineering depths, and <strong>User manuals/guides</strong> for end-users.</p>
+        </div>
+        <div class="card">
+          <h3>C4 Model Design Principles</h3>
+          <p>Systems are architected and visualized using the C4 model—moving seamlessly from System context down
+            through Containers, Components, and Code Artefacts without architectural drift.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="principles" class="tinted reveal">
-  <div class="wrap">
-    <span class="label">Principles</span>
-    <h2>Six rules the platform enforces — not just espouses.</h2>
-    <p class="section-sub">Principles are easy to publish and easy to ignore. On Marshal they are
+  <section id="principles" class="tinted reveal">
+    <div class="wrap">
+      <span class="label">Principles</span>
+      <h2>Six rules the platform enforces — not just espouses.</h2>
+      <p class="section-sub">Principles are easy to publish and easy to ignore. On Marshal they are
         built into the workflow itself: the system will not let work proceed past a checkpoint
         its documentation has not earned.</p>
 
-    <div class="grid">
-      <div class="card">
-        <h3><span class="num">01</span>Inherit before you invent</h3>
-        <p>The Canon is consulted before any new work begins. Wisdom is handed down, and code is an implementation detail written only once the problem is understood and mapped.</p>
-      </div>
-      <div class="card">
-        <h3><span class="num">02</span>Validate before you solve</h3>
-        <p>A challenge is not a problem until the Elders, guided by the Ancestors' record and the evidence, say it is. Preference and seniority are not evidence.</p>
-      </div>
-      <div class="card">
-        <h3><span class="num">03</span>Every decision has a lineage</h3>
-        <p>Ask “why was this built?” and the answer is a record — linked back through
+      <div class="grid">
+        <div class="card">
+          <h3><span class="num">01</span>Inherit before you invent</h3>
+          <p>The Canon is consulted before any new work begins. Wisdom is handed down, and code is an implementation
+            detail written only once the problem is understood and mapped.</p>
+        </div>
+        <div class="card">
+          <h3><span class="num">02</span>Validate before you solve</h3>
+          <p>A challenge is not a problem until the Elders, guided by the Ancestors' record and the evidence, say it is.
+            Preference and seniority are not evidence.</p>
+        </div>
+        <div class="card">
+          <h3><span class="num">03</span>Every decision has a lineage</h3>
+          <p>Ask “why was this built?” and the answer is a record — linked back through
             requirements to the evidence and precedent that justified them — not a recollection.</p>
-      </div>
-      <div class="card">
-        <h3><span class="num">04</span>Quality is engineered</h3>
-        <p>Quality is designed into the process from the first step. Automated checks run
+        </div>
+        <div class="card">
+          <h3><span class="num">04</span>Quality is engineered</h3>
+          <p>Quality is designed into the process from the first step. Automated checks run
             before any review begins, and failures must be fixed — not waived.</p>
-      </div>
-      <div class="card">
-        <h3><span class="num">05</span>Elders decide</h3>
-        <p>AI agents investigate, review, and draft at machine speed. Accountable human
+        </div>
+        <div class="card">
+          <h3><span class="num">05</span>Elders decide</h3>
+          <p>AI agents investigate, review, and draft at machine speed. Accountable human
             domain experts approve, and answer for what they approve.</p>
-      </div>
-      <div class="card">
-        <h3><span class="num">06</span>Every project enriches the Canon</h3>
-        <p>Lessons from each engagement are written back as precedent. Wisdom compounds
+        </div>
+        <div class="card">
+          <h3><span class="num">06</span>Every project enriches the Canon</h3>
+          <p>Lessons from each engagement are written back as precedent. Wisdom compounds
             instead of resetting with every new project.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="how" class="reveal">
-  <div class="wrap">
-    <span class="label">How It Works</span>
-    <h2>How a challenge becomes a system.</h2>
-    <p class="section-sub">A governed path in two movements. The challenge rises from the Tribe to the Ancestors' wisdom and is validated as a problem. The solution then descends, shaped by that wisdom, back to the Tribe. Walk through the journey below.</p>
+  <section id="how" class="reveal">
+    <div class="wrap">
+      <span class="label">How It Works</span>
+      <h2>How a challenge becomes a system.</h2>
+      <p class="section-sub">A governed path in two movements. The challenge rises from the Tribe to the Ancestors'
+        wisdom and is validated as a problem. The solution then descends, shaped by that wisdom, back to the Tribe. Walk
+        through the journey below.</p>
 
-    <div class="steps" id="steps"></div>
-    <div class="step-detail">
-      <span class="label" id="step-stage"></span>
-      <h3 id="step-title"></h3>
-      <p id="step-text"></p>
+      <div class="steps" id="steps"></div>
+      <div class="step-detail">
+        <span class="label" id="step-stage"></span>
+        <h3 id="step-title"></h3>
+        <p id="step-text"></p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="tinted reveal">
-  <div class="wrap">
-    <span class="label">Why Marshal</span>
-    <div class="quote-block">
-      <p class="lead">Sometimes the right outcome of an investigation is the decision not to build.</p>
-      <p>A challenge that does not survive scrutiny closes with a written record of why — the
-         evidence considered, the reasoning applied, and what was observed along the way. That
-         record has real value: it stops budget being spent on the wrong thing, and it protects
-         the next good idea from the same mistake. An honest “no”, evidenced, is worth more than
-         an expensive “yes”. A declined challenge is not a failure; it is precedent, handed on to
-         whoever comes next.</p>
+  <section class="tinted reveal">
+    <div class="wrap">
+      <span class="label">Why Marshal</span>
+      <div class="quote-block">
+        <p class="lead">Sometimes the right outcome of an investigation is the decision not to build.</p>
+        <p>A challenge that does not survive scrutiny closes with a written record of why — the
+          evidence considered, the reasoning applied, and what was observed along the way. That
+          record has real value: it stops budget being spent on the wrong thing, and it protects
+          the next good idea from the same mistake. An honest “no”, evidenced, is worth more than
+          an expensive “yes”. A declined challenge is not a failure; it is precedent, handed on to
+          whoever comes next.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="raise" class="cta reveal">
-  <div class="wrap">
-    <span class="label">Get Started</span>
-    <h2>Raise a challenge.</h2>
-    <p class="section-sub" style="margin-left:auto;margin-right:auto;">
-      A problem, a need, or an opportunity — captured in your own words, with no
-      interpretation and no sales filter.</p>
+  <section id="raise" class="cta reveal">
+    <div class="wrap">
+      <span class="label">Get Started</span>
+      <h2>Raise a challenge.</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">
+        A problem, a need, or an opportunity — captured in your own words, with no
+        interpretation and no sales filter.</p>
 
-    <ul class="what-next">
-      <li>Your challenge and all associated stakeholder perspectives are recorded precisely as submitted.</li>
-      <li>It is investigated against hard evidence to form a complete challenge package.</li>
-      <li>If approved, you receive a rigorous proposal bundle (BRD, PRD, Solution Strategy, transparent pricing, and timeline) before any build begins.</li>
-    </ul>
+      <ul class="what-next">
+        <li>Your challenge and all associated stakeholder perspectives are recorded precisely as submitted.</li>
+        <li>It is investigated against hard evidence to form a complete challenge package.</li>
+        <li>If approved, you receive a rigorous proposal bundle (BRD, PRD, Solution Strategy, transparent pricing, and
+          timeline) before any build begins.</li>
+      </ul>
 
-    <a class="btn" href="mailto:contact@marshal.platform">Raise a Challenge</a>
-  </div>
-</section>
+      <a class="btn" href="mailto:contact@marshal.platform">Raise a Challenge</a>
+    </div>
+  </section>
 
-<footer>
-  <img src="marshal-mark-profile.png" alt="">
-  Marshal — Engineered. Evidenced. Governed.
-</footer>
+  <footer>
+    <img src="marshal-mark-profile.png" alt="">
+    Marshal — Engineered. Evidenced. Governed.
+  </footer>
 
-<script>
-  // ---------- How-it-works stepper ----------
-  const steps = [
-    { name: "1. Challenge Raised",
-      stage: "Rising · Data · The Tribe",
-      text: "A problem, need, or opportunity is brought to the gathering in the submitter's own words and recorded exactly as submitted. Every relevant stakeholder perspective is captured, with no interpretation and no sales filter." },
-    { name: "2. Chief Convenes",
-      stage: "Rising · Information · The Chief",
-      text: "The Chief receives the challenge, maps the internal and external stakeholders, structures what was said, and compiles a complete challenge package. Only then is the council convened." },
-    { name: "3. Elders Validate",
-      stage: "Rising · Knowledge · The Elders, guided by the Ancestors",
-      text: "The Elders test the challenge against the Ancestors' record and the hard evidence. Has it been seen before? What was learned? Is it real? A validated challenge becomes a problem. One that does not survive scrutiny is closed with a written reason, and that reason becomes precedent." },
-    { name: "4. Problem Defined",
-      stage: "Rising · Knowledge · The Elders",
-      text: "Once validated, an engagement is formally registered and the core problem is accurately derived and defined. This is the point where solving can begin, and not before." },
-    { name: "5. Proposal Bundle",
-      stage: "Descending · The Chief, under the Ancestors' rules",
-      text: "Shaped by the Canon, the Chief prepares a transparent proposal package for the client: a Business Requirements Document (BRD), Product Requirements Document (PRD), Solution Strategy, upfront pricing, and strict delivery timelines." },
-    { name: "6. System Design",
-      stage: "Descending · The Chief",
-      text: "Upon client approval of the proposal, execution moves through structured C4 architectural zoom levels—defining the overarching System, individual deployable Containers, isolated Components, and code Artefacts." },
-    { name: "7. Elder Review Loop",
-      stage: "Descending · The Elders approve the Chief's work",
-      text: "Before anything reaches the client, an intensive internal loop occurs: specialist AI and human agents run rigorous automated tests and physical code and document reviews verifying security, structure, performance, and enterprise standards." },
-    { name: "8. Staging & Approval",
-      stage: "Descending · The Tribe accepts",
-      text: "Code and system pieces are pushed to a staging environment where the customer tests and provides direct feedback per container, component, and artefact, leading to final approval and live deployment." },
-    { name: "9. Return to the Canon",
-      stage: "The cycle closes · Wisdom · The Ancestors grow",
-      text: "Every engagement closes by writing its decisions, lessons, and outcome back into the Canon, whether the challenge was built or declined. Today's ruling becomes the precedent the next challenge inherits." }
-  ];
+  <script>
+    // ---------- How-it-works stepper ----------
+    const steps = [
+      {
+        name: "1. Challenge Raised",
+        stage: "Rising · Data · The Tribe",
+        text: "A problem, need, or opportunity is brought to the gathering in the submitter's own words and recorded exactly as submitted. Every relevant stakeholder perspective is captured, with no interpretation and no sales filter."
+      },
+      {
+        name: "2. Chief Convenes",
+        stage: "Rising · Information · The Chief",
+        text: "The Chief receives the challenge, maps the internal and external stakeholders, structures what was said, and compiles a complete challenge package. Only then is the council convened."
+      },
+      {
+        name: "3. Elders Validate",
+        stage: "Rising · Knowledge · The Elders, guided by the Ancestors",
+        text: "The Elders test the challenge against the Ancestors' record and the hard evidence. Has it been seen before? What was learned? Is it real? A validated challenge becomes a problem. One that does not survive scrutiny is closed with a written reason, and that reason becomes precedent."
+      },
+      {
+        name: "4. Problem Defined",
+        stage: "Rising · Knowledge · The Elders",
+        text: "Once validated, an engagement is formally registered and the core problem is accurately derived and defined. This is the point where solving can begin, and not before."
+      },
+      {
+        name: "5. Proposal Bundle",
+        stage: "Descending · The Chief, under the Ancestors' rules",
+        text: "Shaped by the Canon, the Chief prepares a transparent proposal package for the client: a Business Requirements Document (BRD), Product Requirements Document (PRD), Solution Strategy, upfront pricing, and strict delivery timelines."
+      },
+      {
+        name: "6. System Design",
+        stage: "Descending · The Chief",
+        text: "Upon client approval of the proposal, execution moves through structured C4 architectural zoom levels—defining the overarching System, individual deployable Containers, isolated Components, and code Artefacts."
+      },
+      {
+        name: "7. Elder Review Loop",
+        stage: "Descending · The Elders approve the Chief's work",
+        text: "Before anything reaches the client, an intensive internal loop occurs: specialist AI and human agents run rigorous automated tests and physical code and document reviews verifying security, structure, performance, and enterprise standards."
+      },
+      {
+        name: "8. Staging & Approval",
+        stage: "Descending · The Tribe accepts",
+        text: "Code and system pieces are pushed to a staging environment where the customer tests and provides direct feedback per container, component, and artefact, leading to final approval and live deployment."
+      },
+      {
+        name: "9. Return to the Canon",
+        stage: "The cycle closes · Wisdom · The Ancestors grow",
+        text: "Every engagement closes by writing its decisions, lessons, and outcome back into the Canon, whether the challenge was built or declined. Today's ruling becomes the precedent the next challenge inherits."
+      }
+    ];
 
-  const stepsWrap = document.getElementById("steps");
-  const stepStage = document.getElementById("step-stage");
-  const stepTitle = document.getElementById("step-title");
-  const stepText = document.getElementById("step-text");
+    const stepsWrap = document.getElementById("steps");
+    const stepStage = document.getElementById("step-stage");
+    const stepTitle = document.getElementById("step-title");
+    const stepText = document.getElementById("step-text");
 
-  steps.forEach((step, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = step.name;
-    btn.addEventListener("click", () => selectStep(i));
-    stepsWrap.appendChild(btn);
-  });
+    steps.forEach((step, i) => {
+      const btn = document.createElement("button");
+      btn.textContent = step.name;
+      btn.addEventListener("click", () => selectStep(i));
+      stepsWrap.appendChild(btn);
+    });
 
-  function selectStep(i) {
-    stepsWrap.querySelectorAll("button").forEach((b, j) => b.classList.toggle("active", i === j));
-    stepStage.textContent = steps[i].stage;
-    stepTitle.textContent = steps[i].name;
-    stepText.textContent = steps[i].text;
-  }
+    function selectStep(i) {
+      stepsWrap.querySelectorAll("button").forEach((b, j) => b.classList.toggle("active", i === j));
+      stepStage.textContent = steps[i].stage;
+      stepTitle.textContent = steps[i].name;
+      stepText.textContent = steps[i].text;
+    }
 
-  selectStep(0);
+    selectStep(0);
 
-  // ---------- Mobile nav ----------
-  const menuBtn = document.getElementById("menu-btn");
-  const nav = document.getElementById("nav");
-  menuBtn.addEventListener("click", () => nav.classList.toggle("open"));
-  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+    // ---------- Mobile nav ----------
+    const menuBtn = document.getElementById("menu-btn");
+    const nav = document.getElementById("nav");
+    menuBtn.addEventListener("click", () => nav.classList.toggle("open"));
+    nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
 
-  // ---------- Header border on scroll ----------
-  const header = document.getElementById("header");
-  window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 8);
-  }, { passive: true });
+    // ---------- Header border on scroll ----------
+    const header = document.getElementById("header");
+    window.addEventListener("scroll", () => {
+      header.classList.toggle("scrolled", window.scrollY > 8);
+    }, { passive: true });
 
-  // ---------- Reveal on scroll ----------
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
-  }, { threshold: 0.12 });
+    // ---------- Reveal on scroll ----------
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+    }, { threshold: 0.12 });
 
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-</script>
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
 
 </body>
+
 </html>
